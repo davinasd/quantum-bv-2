@@ -7,17 +7,18 @@ import  {signIn, signOut, useSession, getProviders} from 'next-auth/react';
 
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  // const isUserLoggedIn = true;
+  const{data:session} = useSession();
   const [providers, setProviders] = useState(null);
   // done mainly for dropdown when screen reduces
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(()=>{
-    const setProviders = async() =>{
+    const setUpProviders = async() =>{
       const response = await getProviders();
       setProviders(response);
     }
-    setProviders();
+    setUpProviders();
   }, [])
 
 
@@ -28,11 +29,13 @@ const Nav = () => {
         <p className="logo_text">Prompt_master</p>
       </Link>
 
-      
+        {/* {alert(session?.user)}  */}
+        {/* {alert(providers)}      */}
 
       {/* desktop navigation */}
       <div className="sm:flex hidden">
-         {isUserLoggedIn ?(
+        
+         {session?.user ?(
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn" >
               Create Post
@@ -61,10 +64,10 @@ const Nav = () => {
 
        {/* mobile navigation */}
       <div className="sm:hidden flex relative">
-         {isUserLoggedIn ?(
+         {session?.user ?(
           <div className="flex ">
            
-            <Image src="/assets/images/logo.svg" width={37} 
+            <Image src={session?.user.image} width={37} 
             height={37} 
             className="rounded-full" 
             alt="profile"
@@ -106,3 +109,6 @@ const Nav = () => {
 }
 
 export default Nav
+
+
+
