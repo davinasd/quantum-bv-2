@@ -49,8 +49,11 @@ const Nav = () => {
 
           </div>
          ):(
-          <>
-            {providers && Object.values(providers).map((provider)=> (
+          < div className="flex  gap-3">
+            <Link href="/create-prompt" className="black_btn" >
+              Create Post
+            </Link>
+            { providers && Object.values(providers).map((provider)=> (
               <button type="button" 
               key={provider.name}
               onClick ={()=>signIn(provider.id) } 
@@ -58,7 +61,7 @@ const Nav = () => {
                 Sign In
               </button>
             ))}
-          </>
+          </div>
          )}
       </div>
 
@@ -88,6 +91,9 @@ const Nav = () => {
           </div>
          ):(
           <>
+            <Link href="/create-prompt" className="black_btn" >
+              Create Post
+            </Link>
             {providers && Object.values(providers).map((provider)=> (
               <button type="button" 
               key={provider.name}

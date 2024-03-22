@@ -1,5 +1,6 @@
 // used to connect to db 
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 let isConnected = false; // track the connection 
 
@@ -12,8 +13,8 @@ const connectToDB = async () =>{
   }
   else{
     try {
-      await mongoose.connect(process.env.MONGODB_URI,{
-        dbName:share_prompt,
+      await mongoose.connect("mongodb+srv://adhithi_m:qFWDGvAnaj4TfQca@atlascluster.odf9wo2.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster",{
+        dbName:"share_prompt",
         useNewUrlParser:true,
         useUnifiedTopology : true,
       })
@@ -24,5 +25,5 @@ const connectToDB = async () =>{
     }
   }
 }
-
+// connectToDB();
 export default connectToDB;

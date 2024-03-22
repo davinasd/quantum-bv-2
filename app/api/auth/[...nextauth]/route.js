@@ -42,6 +42,7 @@ const handler = NextAuth({
             email: profile.email
           });
           
+          console.log(userExist,"adhithi");
 
         // if not create a new user 
         if(!userExist){
@@ -51,6 +52,13 @@ const handler = NextAuth({
             image:profile.picture
           })
         }
+      
+      const has2FAEnabled = true;
+
+      if (has2FAEnabled) {
+        // If 2FA is enabled, prompt the user for the verification code
+        return '/verify';
+      }
 
         return true;
       }
