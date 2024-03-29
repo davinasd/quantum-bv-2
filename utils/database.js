@@ -1,6 +1,6 @@
 // used to connect to db 
 const mongoose = require('mongoose');
-require('dotenv').config();
+// require('dotenv').config();
 
 let isConnected = false; // track the connection 
 
