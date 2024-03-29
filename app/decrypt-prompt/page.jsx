@@ -39,13 +39,14 @@ const DecryptPrompt = () => {
         }
    }
   return (
-   <Form
-    type = "Create"
-    post = {post}
-    setPost = {setPost}
-    submitting = {submitting}
-    handleSubmit = {createPrompt}
-   />
+  //  <Form
+  //   type = "Create"
+  //   post = {post}
+  //   setPost = {setPost}
+  //   submitting = {submitting}
+  //   handleSubmit = {createPrompt}
+  //  />
+  <h1>Decrypt page </h1>
   )
 }
 
