@@ -13,7 +13,7 @@ const connectToDB = async () =>{
   }
   else{
     try {
-      await mongoose.connect("mongodb+srv://adhithi_m:qFWDGvAnaj4TfQca@atlascluster.odf9wo2.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster",{
+      await mongoose.connect(process.env.MONGODB_URI,{
         dbName:"share_prompt",
         useNewUrlParser:true,
         useUnifiedTopology : true,
