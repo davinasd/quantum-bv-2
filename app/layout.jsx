@@ -3,8 +3,8 @@ import Nav from '@components/Nav'
 // import Provider from '@components/Provider'
 
  export const metadata = {
-        title : "Prompt_master",
-        description:"Discover and share AI prompts which are useful",
+        title : "BV_algo",
+        description:"Discover the power of Bernstein Vazirani algorithm.",
  }
 
 const RootLayout = ({children}) => {
