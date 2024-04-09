@@ -67,7 +67,7 @@ const Alert = ({ message }) => {
   const { binary_string, results } = message;
 
   return (
-    <div>
+    <div className="ml-5">
       <p>For Binary String: {binary_string}</p>
       {Object.entries(results).map(([blackBox, probability]) => (
         <div key={blackBox}>
