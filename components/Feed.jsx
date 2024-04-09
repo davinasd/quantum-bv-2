@@ -15,7 +15,7 @@ const Feed = () => {
       <div className="sm:flex ">
         <div className="flex gap-3 md:gap-5">
           <Link href="/message" className="black_btn">
-           Click Here to Test Bernstein Vazirani Algorithm.
+           Click Here to Test the Power of BV Algorithm.
           </Link>
         </div>
       </div>
