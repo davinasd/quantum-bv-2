@@ -56,6 +56,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreatePrompt = () => {
   const router = useRouter();
@@ -77,6 +79,7 @@ const CreatePrompt = () => {
         .map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
         .join("");
     }
+
     try {
       const res = await fetch(
         "https://frequently-national-yak.ngrok-free.app/run-bernstein-vazirani",
@@ -97,28 +100,37 @@ const CreatePrompt = () => {
           const firstResult = Object.entries(data.results)[0];
           const [binaryString, probability] = firstResult;
           const alertMessage = `Black Box: ${binaryString}, Probability: ${probability}`;
-          alert(alertMessage);
+          toast.success(alertMessage);
           setPost({ prompt: "" });
         } else {
-          alert("No results found.");
+          toast.error("No results found.");
         }
       }
     } catch (error) {
       console.log(error);
+      toast.error("An error occurred while processing the request.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <Form
-      type="Enter"
-      post={post}
-      setPost={setPost}
-      submitting={submitting}
-      handleSubmit={createPrompt}
-    />
+    <>
+      <Form
+        type="Enter"
+        post={post}
+        setPost={setPost}
+        submitting={submitting}
+        handleSubmit={createPrompt}
+      />
+      <ToastContainer
+        position="top-center"
+        autoClose={10000}
+        hideProgressBar={true}
+      />
+    </>
   );
 };
 
 export default CreatePrompt;
+
