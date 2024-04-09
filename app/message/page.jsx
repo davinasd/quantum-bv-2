@@ -99,8 +99,14 @@ const CreatePrompt = () => {
         if (data.results) {
           const firstResult = Object.entries(data.results)[0];
           const [binaryString, probability] = firstResult;
-          const alertMessage = `Black Box: ${binaryString}, Probability: ${probability}`;
-          toast.success(alertMessage);
+        const alertMessage = `Black Box: ${binaryString},\nProbability: ${probability}`;
+         toast.success(
+           <CustomToastMessage
+             binaryString={binaryString}
+             probability={probability}
+           />
+         );
+
           setPost({ prompt: "" });
         } else {
           toast.error("No results found.");
@@ -113,6 +119,13 @@ const CreatePrompt = () => {
       setSubmitting(false);
     }
   };
+  const CustomToastMessage = ({ binaryString, probability }) => (
+    <div className="text-lg font-bold ml-5">
+      <p className="text-xl font-bold text-black">Black Box: {binaryString}</p>
+      <p className="text-xl font-bold text-black">Probability: {probability}</p>
+    </div>
+  );
+
 
   return (
     <>
