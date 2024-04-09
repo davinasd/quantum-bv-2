@@ -11,7 +11,8 @@ const RootLayout = ({ children }) => {
   return (
     <html lang='en'>
       <Head>
-        <link rel="icon" href="/assets/images/logo.svg" /> 
+        <link rel="icon" type
+        href="assets/images/logo.svg" /> 
       </Head>
       <body>
 

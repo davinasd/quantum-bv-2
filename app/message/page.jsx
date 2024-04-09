@@ -1,58 +1,4 @@
-// "use client";
-
-// import { useState } from "react"
-// // import { useSession } from "next-auth/react"
-// import { useRouter } from "next/navigation"
-// import Form from "@components/Form";
-
-// const CreatePrompt = () => {
-//    const router = useRouter();
-//   //  const {data: session} = useSession();
-
-//    const [submitting, setSubmitting] = useState(false);
-//    const [post, setPost] = useState({
-//     prompt:'',
-//     tag : '',
-//    })
-//    const createPrompt = async(e) =>{
-//         e.preventDefault();
-//         setSubmitting(true);
-//         try {
-//           const res = await fetch("/api/prompt/new", {
-//             method:'POST',
-//             body:JSON.stringify({
-//               prompt:post.prompt,
-//               userId:"123456",
-//               tag:post.tag,
-//             })
-//           })
-
-//           if(res.ok){
-//             router.push("/");
-//           }
-//         }
-//         catch (error) {
-//           console.log(error);
-//         }
-//         finally{
-//           setSubmitting(false);
-//         }
-//    }
-//   return (
-//    <Form
-//     type = "Create"
-//     post = {post}
-//     setPost = {setPost}
-//     submitting = {submitting}
-//     handleSubmit = {createPrompt}
-//    />
-//   )
-// }
-
-// export default CreatePrompt;
-
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
@@ -97,16 +43,13 @@ const CreatePrompt = () => {
       if (res.ok) {
         const data = await res.json();
         if (data.results) {
-          const firstResult = Object.entries(data.results)[0];
-          const [binaryString, probability] = firstResult;
-        const alertMessage = `Black Box: ${binaryString},\nProbability: ${probability}`;
-         toast.success(
-           <CustomToastMessage
-             binaryString={binaryString}
-             probability={probability}
-           />
-         );
-
+          // Joined without separator
+          toast.success(<Alert message={data} />, {
+            style: {
+              fontWeight: "bold",
+              color: "black",
+            },
+          });
           setPost({ prompt: "" });
         } else {
           toast.error("No results found.");
@@ -119,12 +62,22 @@ const CreatePrompt = () => {
       setSubmitting(false);
     }
   };
-  const CustomToastMessage = ({ binaryString, probability }) => (
-    <div className="text-lg font-bold ml-5">
-      <p className="text-xl font-bold text-black">Black Box: {binaryString}</p>
-      <p className="text-xl font-bold text-black">Probability: {probability}</p>
+
+const Alert = ({ message }) => {
+  const { binary_string, results } = message;
+
+  return (
+    <div>
+      <p>For Binary String: {binary_string}</p>
+      {Object.entries(results).map(([blackBox, probability]) => (
+        <div key={blackBox}>
+          Black Box: {blackBox}, Probability: {probability}
+        </div>
+      ))}
     </div>
   );
+};
+
 
 
   return (
@@ -140,10 +93,10 @@ const CreatePrompt = () => {
         position="top-center"
         autoClose={10000}
         hideProgressBar={true}
+        style={{ width: "400px" }}
       />
     </>
   );
 };
 
 export default CreatePrompt;
-
