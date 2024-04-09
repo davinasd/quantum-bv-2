@@ -13,7 +13,7 @@ const Feed = () => {
   return (
     <section className="feed">
       <div className="sm:flex ">
-        <div className="flex gap-3 md:gap-5">
+        <div className="flex gap-3 md:gap-5 mb-10">
           <Link href="/message" className="black_btn">
            Click Here to Test the Power of BV Algorithm.
           </Link>

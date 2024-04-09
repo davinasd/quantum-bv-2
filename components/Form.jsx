@@ -60,7 +60,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             type="submit"
             disabled={submitting}
           >
-            {submitting ? `Awaiting Response` : type}
+            {submitting ? `Awaiting Response From Server` : type}
           </button>
         </div>
       </form>
