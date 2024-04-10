@@ -28,7 +28,7 @@ const CreatePrompt = () => {
 
     try {
       const res = await fetch(
-        "https://frequently-national-yak.ngrok-free.app/run-bernstein-vazirani",
+        "https://a258-34-236-202-207.ngrok-free.app/run-bernstein-vazirani",
         {
           method: "POST",
           headers: {
