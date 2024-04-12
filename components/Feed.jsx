@@ -2,10 +2,7 @@
 
 
 
-import Link from "next/link"; //automatically use links
-
-
-
+import Link from "next/link"; /
 
 const Feed = () => {
 
@@ -14,8 +11,11 @@ const Feed = () => {
     <section className="feed">
       <div className="sm:flex ">
         <div className="flex gap-3 md:gap-5 mb-10">
-          <Link href="/message" className="black_btn">
-           Click Here to Test the Power of BV Algorithm.
+          <Link href="/message" className="black_btn text-blue_gradient">
+           BV Algorithm
+          </Link>
+          <Link href="/grover" className="black_btn text-blue_gradient">
+           Grovers Algorithm
           </Link>
         </div>
       </div>

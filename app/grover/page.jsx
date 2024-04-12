@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 
-const CreatePrompt = () => {
+const grover = () => {
   const router = useRouter();
 
   const [submitting, setSubmitting] = useState(false);
@@ -14,7 +14,7 @@ const CreatePrompt = () => {
     prompt: "",
   });
   const [histogramImage, setHistogramImage] = useState(null);
-  const [cacheBuster, setCacheBuster] = useState(0); 
+  const [cacheBuster, setCacheBuster] = useState(0);
 
   const createPrompt = async (e) => {
     setHistogramImage("");
@@ -32,7 +32,7 @@ const CreatePrompt = () => {
 
     try {
       const res = await fetch(
-        "https://frequently-national-yak.ngrok-free.app/run-bernstein-vazirani",
+        "https://frequently-national-yak.ngrok-free.app/run-grover",
         {
           method: "POST",
           headers: {
@@ -46,7 +46,8 @@ const CreatePrompt = () => {
 
       if (res.ok) {
         const data = await res.json();
-        if (data.results) {
+        console.log(data);
+        if (data) {
           toast.success(<Alert message={data} />, {
             style: {
               fontWeight: "bold",
@@ -57,7 +58,6 @@ const CreatePrompt = () => {
           setHistogramImage(
             `https://frequently-national-yak.ngrok-free.app/get-histogram?cache=${cacheBuster}`
           );
-          // Update cacheBuster to trigger cache busting
           setCacheBuster(cacheBuster + 1);
         } else {
           toast.error("No results found.");
@@ -72,36 +72,28 @@ const CreatePrompt = () => {
   };
 
   const Alert = ({ message }) => {
-    const { binary_string, results, endedAt, id, quantum_tasks } = message;
-    const { taskMetadata } = quantum_tasks;
+    const { endedAt } = message;
 
     return (
       <div className="ml-5">
-        <p>For Binary String: {binary_string}</p>
-        {taskMetadata && (
-          <div>
-            <p>Task Created At: {taskMetadata.createdAt}</p>
-            <p>Device ID: {taskMetadata.deviceId}</p>
-            <p>Status: {taskMetadata.status}</p>
-          </div>
-        )}
         <p>Results:</p>
         <ul>
-          {Object.entries(results).map(([blackBox, probability]) => (
+          {Object.entries(message).map(([blackBox, probability]) => (
             <li key={blackBox}>
               Black Box: {blackBox}, Probability: {probability}
             </li>
           ))}
         </ul>
-        <p>Ended At {endedAt}</p>
       </div>
     );
   };
 
+
+
   return (
     <>
       <h1 className="head_text text-left">
-        <span className="blue_gradient">BV Algorithm </span>
+        <span className="green_gradient">Groover Algorithm</span>
       </h1>
       <Form
         type="Enter"
@@ -110,9 +102,23 @@ const CreatePrompt = () => {
         submitting={submitting}
         handleSubmit={createPrompt}
       />
-      {histogramImage && (
-        <Image src={histogramImage} width={800} height={500} alt="Histogram" />
-      )}
+      <div className="flex justify-center">
+        <div className="flex flex-row items-center space-y-4 h-auto">
+          <img
+            src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/circuit.png"
+            width={600}
+            height={500}
+            alt="Histogram"
+            className="mr-4"
+          />
+          <img
+            src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/anatomy.png"
+            width={600}
+            height={500}
+            alt="Histogram"
+          />
+        </div>
+      </div>
       <ToastContainer
         position="top-center"
         autoClose={10000}
@@ -123,4 +129,4 @@ const CreatePrompt = () => {
   );
 };
 
-export default CreatePrompt;
+export default grover;

@@ -8,6 +8,7 @@ const nextConfig = {
     domains: [
       "lh3.googleusercontent.com",
       "frequently-national-yak.ngrok-free.app",
+      "github.com",
     ],
   },
   webpack(config) {
