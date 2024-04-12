@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 
 const CreatePrompt = () => {
   const router = useRouter();
@@ -12,8 +13,11 @@ const CreatePrompt = () => {
   const [post, setPost] = useState({
     prompt: "",
   });
+  const [histogramImage, setHistogramImage] = useState(null);
+  const [cacheBuster, setCacheBuster] = useState(0); // Initial value doesn't matter
 
   const createPrompt = async (e) => {
+    setHistogramImage("");
     e.preventDefault();
     setSubmitting(true);
 
@@ -28,7 +32,7 @@ const CreatePrompt = () => {
 
     try {
       const res = await fetch(
-        "https://a258-34-236-202-207.ngrok-free.app/run-bernstein-vazirani",
+        "https://frequently-national-yak.ngrok-free.app/run-bernstein-vazirani",
         {
           method: "POST",
           headers: {
@@ -43,7 +47,6 @@ const CreatePrompt = () => {
       if (res.ok) {
         const data = await res.json();
         if (data.results) {
-          // Joined without separator
           toast.success(<Alert message={data} />, {
             style: {
               fontWeight: "bold",
@@ -51,6 +54,11 @@ const CreatePrompt = () => {
             },
           });
           setPost({ prompt: "" });
+          setHistogramImage(
+            `https://frequently-national-yak.ngrok-free.app/get-histogram?cache=${cacheBuster}`
+          );
+          // Update cacheBuster to trigger cache busting
+          setCacheBuster(cacheBuster + 1);
         } else {
           toast.error("No results found.");
         }
@@ -63,22 +71,32 @@ const CreatePrompt = () => {
     }
   };
 
-const Alert = ({ message }) => {
-  const { binary_string, results } = message;
+  const Alert = ({ message }) => {
+    const { binary_string, results, endedAt, id, quantum_tasks } = message;
+    const { taskMetadata } = quantum_tasks;
 
-  return (
-    <div className="ml-5">
-      <p>For Binary String: {binary_string}</p>
-      {Object.entries(results).map(([blackBox, probability]) => (
-        <div key={blackBox}>
-          Black Box: {blackBox}, Probability: {probability}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-
+    return (
+      <div className="ml-5">
+        <p>For Binary String: {binary_string}</p>
+        {taskMetadata && (
+          <div>
+            <p>Task Created At: {taskMetadata.createdAt}</p>
+            <p>Device ID: {taskMetadata.deviceId}</p>
+            <p>Status: {taskMetadata.status}</p>
+          </div>
+        )}
+        <p>Results:</p>
+        <ul>
+          {Object.entries(results).map(([blackBox, probability]) => (
+            <li key={blackBox}>
+              Black Box: {blackBox}, Probability: {probability}
+            </li>
+          ))}
+        </ul>
+        <p>Ended At {endedAt}</p>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -89,6 +107,9 @@ const Alert = ({ message }) => {
         submitting={submitting}
         handleSubmit={createPrompt}
       />
+      {histogramImage && (
+        <Image src={histogramImage} width={800} height={500} alt="Histogram" />
+      )}
       <ToastContainer
         position="top-center"
         autoClose={10000}
