@@ -5,6 +5,14 @@ import Form from "@components/Form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import {
+  slideInFromLeft,
+  slideInFromRight,
+  slideInFromTop,
+} from "@/utils/motion";
+
+
 
 const CreatePrompt = () => {
   const router = useRouter();
@@ -100,9 +108,18 @@ const CreatePrompt = () => {
 
   return (
     <>
+      <motion.div
+      initial="hidden"
+      animate="visible"
+      className="flex flex-col items-center justify-center px-10 mt-20 w-full z-[20]"
+    >
+      <motion.div variants={slideInFromTop}>
       <h1 className="head_text text-left">
         <span className="blue_gradient">BV Algorithm </span>
       </h1>
+      </motion.div>
+      
+    <motion.div variants={slideInFromLeft(0.5)}>
       <Form
         type="Enter"
         post={post}
@@ -110,6 +127,7 @@ const CreatePrompt = () => {
         submitting={submitting}
         handleSubmit={createPrompt}
       />
+      </motion.div>
       {histogramImage && (
         <Image src={histogramImage} width={800} height={500} alt="Histogram" />
       )}
@@ -119,6 +137,7 @@ const CreatePrompt = () => {
         hideProgressBar={true}
         style={{ width: "400px" }}
       />
+      </motion.div>
     </>
   );
 };

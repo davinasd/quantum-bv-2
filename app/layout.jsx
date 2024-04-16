@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import '@styles/global.css';
 import Nav from '@components/Nav';
-
+import Footer from '@components/Footer';
+import StarsCanvas from "@/components/StarBg";
 export const metadata = {
   title: "BV_algo",
   description: "Discover the power of Bernstein Vazirani algorithm.",
@@ -20,9 +21,13 @@ const RootLayout = ({ children }) => {
           <div className="gradient"></div>
         </div>
 
-        <main className='app'>
-          <Nav />
+        <main  className={` bg-[#030014] overflow-y-scroll overflow-x-hidden`}>
+            <StarsCanvas />
+           <Nav />
           {children}
+           
+
+         
         </main>
 
       </body>

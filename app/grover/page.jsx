@@ -5,6 +5,12 @@ import Form from "@components/Form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import {
+  slideInFromLeft,
+  slideInFromRight,
+  slideInFromTop,
+} from "@/utils/motion";
 
 const grover = () => {
   const router = useRouter();
@@ -92,9 +98,18 @@ const grover = () => {
 
   return (
     <>
+      <motion.div
+      initial="hidden"
+      animate="visible"
+      className="flex flex-col items-center justify-center px-10 mt-20 w-full z-[20]"
+    >
+      <motion.div variants={slideInFromTop}>
       <h1 className="head_text text-left">
         <span className="green_gradient">Groover Algorithm</span>
       </h1>
+      </motion.div>
+
+      <motion.div variants={slideInFromLeft(0.5)}>
       <Form
         type="Enter"
         post={post}
@@ -102,21 +117,31 @@ const grover = () => {
         submitting={submitting}
         handleSubmit={createPrompt}
       />
+      </motion.div>
+      
+
+
       <div className="flex justify-center">
-        <div className="flex flex-row items-center space-y-4 h-auto">
+        <div className=" mt-10 flex flex-col items-center space-y-4 h-auto">
+          <motion.div variants={slideInFromLeft(1)} style={{ margin: '10px', borderRadius: '0%', overflow: 'hidden' }}>
+            
           <img
             src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/circuit.png"
-            width={600}
+            width={700}
             height={500}
             alt="Histogram"
             className="mr-4"
           />
+          </motion.div>
+
+          <motion.div variants={slideInFromRight(1.5)} style={{ margin: '10px', borderRadius: '0%', overflow: 'hidden' }}>
           <img
             src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/anatomy.png"
-            width={600}
+            width={700}
             height={500}
             alt="Histogram"
           />
+          </motion.div>
         </div>
       </div>
       <ToastContainer
@@ -125,6 +150,8 @@ const grover = () => {
         hideProgressBar={true}
         style={{ width: "400px" }}
       />
+
+      </motion.div>
     </>
   );
 };

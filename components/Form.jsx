@@ -1,5 +1,8 @@
+"use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
+// import { motion } from "framer-motion";
+
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
  useEffect(() => {
@@ -23,18 +26,20 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
  }, [handleSubmit]);
 
   return (
+    
     <section className="w-full max-w-full flex-center flex-col">
-     
-      <p className="desc text-left max-w-md">
+      
+      <p className="text-lg text-gray-400 my-3 max-w-[600px]">
         Enter Message you want to add into the Black Box.
       </p>
-
+     
+     
       <form
         onSubmit={handleSubmit}
         className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
       >
         <label>
-          <span className="font-satoshi font-semibold text-base text-gray-700">
+          <span className="cursive text-[20px] font-medium text-center text-gray-300">
             Enter the Message here.
           </span>
           <textarea
@@ -50,11 +55,11 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           />
         </label>
         <div className="flex-end mx-3 mb-4 gap-4">
-          <Link href="/" className="text-gray-500 text-sm">
+          <Link href="/" className="py-2 px-4 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px] ">
             Cancel
           </Link>
           <button
-            className="px-5 py-1.5 rounded-full text-sm text-white bg-primary-orange"
+            className="py-2 px-4 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
             type="submit"
             disabled={submitting}
           >
@@ -62,6 +67,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
           </button>
         </div>
       </form>
+   
     </section>
   );
 };
