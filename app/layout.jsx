@@ -10,26 +10,21 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
   return (
-    <html lang='en'>
+    <html lang="en">
       <Head>
-        <link rel="icon" type
-        href="assets/images/logo.svg" /> 
+        <link rel="icon" type href="assets/images/logo.svg" />
       </Head>
       <body>
-
         <div className="main">
           <div className="gradient"></div>
         </div>
 
-        <main  className={` bg-[#030014] overflow-y-scroll overflow-x-hidden`}>
-            <StarsCanvas />
-           <Nav />
+        <main className={` bg-[#030014] overflow-y-scroll overflow-x-hidden`}>
+        
+
+          <Nav />
           {children}
-           
-
-         
         </main>
-
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import StarsCanvas from "@/components/StarBg";
 import {
   slideInFromLeft,
   slideInFromRight,
@@ -29,12 +30,7 @@ const grover = () => {
 
     let binaryPrompt = post.prompt;
 
-    if (!/^[01]+$/.test(post.prompt)) {
-      binaryPrompt = post.prompt
-        .split("")
-        .map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
-        .join("");
-    }
+
 
     try {
       const res = await fetch(
@@ -99,58 +95,66 @@ const grover = () => {
   return (
     <>
       <motion.div
-      initial="hidden"
-      animate="visible"
-      className="flex flex-col items-center justify-center px-10 mt-20 w-full z-[20]"
-    >
-      <motion.div variants={slideInFromTop}>
-      <h1 className="head_text text-left">
-        <span className="green_gradient">Groover Algorithm</span>
-      </h1>
-      </motion.div>
+        initial="hidden"
+        animate="visible"
+        className="relative flex flex-col items-center justify-center px-10 mt-20 w-full z-[20]"
+      >
+        <motion.div variants={slideInFromTop}>
+          <h1 className="head_text text-left">
+            <span className="green_gradient">Groover Algorithm</span>
+          </h1>
+        </motion.div>
 
-      <motion.div variants={slideInFromLeft(0.5)}>
-      <Form
-        type="Enter"
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={createPrompt}
-      />
-      </motion.div>
-      
-
-
-      <div className="flex justify-center">
-        <div className=" mt-10 flex flex-col items-center space-y-4 h-auto">
-          <motion.div variants={slideInFromLeft(1)} style={{ margin: '10px', borderRadius: '0%', overflow: 'hidden' }}>
-            
-          <img
-            src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/circuit.png"
-            width={700}
-            height={500}
-            alt="Histogram"
-            className="mr-4"
+        <motion.div variants={slideInFromLeft(0.5)} >
+          <Form
+            type="Enter"
+            post={post}
+            setPost={setPost}
+            submitting={submitting}
+            handleSubmit={createPrompt}
           />
-          </motion.div>
+        </motion.div>
 
-          <motion.div variants={slideInFromRight(1.5)} style={{ margin: '10px', borderRadius: '0%', overflow: 'hidden' }}>
-          <img
-            src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/anatomy.png"
-            width={700}
-            height={500}
-            alt="Histogram"
-          />
-          </motion.div>
+        {/* StarsCanvas moved to the background */}
+        <div className="absolute inset-0 z-10 pointer-events-none">
+          <StarsCanvas />
         </div>
-      </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={10000}
-        hideProgressBar={true}
-        style={{ width: "400px" }}
-      />
 
+        <div className="flex justify-center relative z-[10]">
+          <div className=" mt-10 flex flex-col items-center space-y-4 h-auto">
+            <motion.div
+              variants={slideInFromLeft(1)}
+              style={{ margin: "10px", borderRadius: "0%", overflow: "hidden" }}
+            >
+              <img
+                src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/circuit.png"
+                width={700}
+                height={500}
+                alt="Histogram"
+                className="mr-4"
+              />
+            </motion.div>
+
+            <motion.div
+              variants={slideInFromRight(1.5)}
+              style={{ margin: "10px", borderRadius: "0%", overflow: "hidden" }}
+            >
+              <img
+                src="https://raw.githubusercontent.com/amazon-braket/amazon-braket-examples/main/examples/advanced_circuits_algorithms/Grover/anatomy.png"
+                width={700}
+                height={500}
+                alt="Histogram"
+              />
+            </motion.div>
+          </div>
+        </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={10000}
+          hideProgressBar={true}
+          style={{ width: "400px" }}
+          className="mt-40"
+        />
       </motion.div>
     </>
   );
