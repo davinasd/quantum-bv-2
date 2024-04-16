@@ -105,7 +105,7 @@ const grover = () => {
           </h1>
         </motion.div>
 
-        <motion.div variants={slideInFromLeft(0.5)} >
+        <motion.div variants={slideInFromLeft(0.5)}>
           <Form
             type="Enter"
             post={post}
@@ -152,8 +152,8 @@ const grover = () => {
           position="top-center"
           autoClose={10000}
           hideProgressBar={true}
-          style={{ width: "400px" }}
-          className="mt-40"
+          style={{ width: "600px" }}
+          className="mt-20"
         />
       </motion.div>
     </>

@@ -98,7 +98,7 @@ const CreatePrompt = () => {
             </li>
           ))}
         </ul>
-        <p>Ended At {endedAt}</p>
+        <p>Ended At {taskMetadata.endedAt}</p>
       </div>
     );
   };
@@ -139,7 +139,8 @@ const CreatePrompt = () => {
           position="top-center"
           autoClose={10000}
           hideProgressBar={true}
-          style={{ width: "400px" }}
+          style={{ width: "600px" }}
+          className="mt-20"
           
         />
       </motion.div>
